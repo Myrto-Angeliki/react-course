@@ -1,0 +1,13 @@
+import './WelcomeMessage.css'
+
+export function WelcomeMessage({chatMessages}){
+  if(chatMessages.length !== 0){
+      return ('');
+  }
+  else{
+      return (
+          <p className="welcome-message">
+              Welcome to the chatbot project! Send a message using the textbox below.
+          </p>);
+  }
+}
