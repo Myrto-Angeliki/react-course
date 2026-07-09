@@ -5,6 +5,7 @@ export function OrdersPage() {
     return (
         <>
             <title>Orders</title>
+            <link rel="icon" href="orders-favicon.png" />
 
             <Header />
 
