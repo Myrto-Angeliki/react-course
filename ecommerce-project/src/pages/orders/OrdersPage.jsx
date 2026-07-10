@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { useState, useEffect, Fragment } from 'react';
 import dayjs from 'dayjs';
-import { Header } from '../components/Header';
-import { formatMoney } from '../utils/money';
-import BuyAgain from '../assets/images/icons/buy-again.png';
+import { Header } from '../../components/Header';
+import { formatMoney } from '../../utils/money';
+import BuyAgain from '../../assets/images/icons/buy-again.png';
 
 import './OrdersPage.css';
 
@@ -60,7 +60,6 @@ export function OrdersPage({ cart }) {
                                                 <div className="product-details">
                                                     <div className="product-name">
                                                         {productDetails.product.name}
-                                                        {console.log(productDetails.product.name)}
                                                     </div>
                                                     <div className="product-delivery-date">
                                                         Arriving on: {dayjs(productDetails.estimatedDeliveryTimeMs)
