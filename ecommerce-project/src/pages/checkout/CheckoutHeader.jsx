@@ -1,11 +1,12 @@
 import { Link } from 'react-router'
+import { getItemsInCart } from '../../utils/items.js'
 import Logo  from '../../assets/images/logo.png'
 import MobileLogo from '../../assets/images/mobile-logo.png'
 import CheckoutLock from "../../assets/images/icons/checkout-lock-icon.png"
 
 import './CheckoutHeader.css'
 
-export function CheckoutHeader() {
+export function CheckoutHeader({ cart }) {
     return (
         <div className="checkout-header">
             <div className="header-content">
@@ -18,7 +19,7 @@ export function CheckoutHeader() {
 
                 <div className="checkout-header-middle-section">
                     Checkout (<Link className="return-to-home-link"
-                        to="/">3 items</Link>)
+                        to="/">{getItemsInCart(cart)} items</Link>)
                 </div>
 
                 <div className="checkout-header-right-section">
