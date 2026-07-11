@@ -5,7 +5,6 @@ import BuyAgain from '../../assets/images/icons/buy-again.png';
 
 export function ProductDetails({order, productDetails, loadCart}) {
     const incrementCartItemQuantity = async () => {
-        console.log(productDetails.productId);
         await axios.post('/api/cart-items/', {
             productId: productDetails.productId,
             quantity: 1
