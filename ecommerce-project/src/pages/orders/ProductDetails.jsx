@@ -1,0 +1,48 @@
+import axios from "axios";
+import dayjs from "dayjs";
+import { Fragment } from 'react';
+import BuyAgain from '../../assets/images/icons/buy-again.png';
+
+export function ProductDetails({order, productDetails, loadCart}) {
+    const incrementCartItemQuantity = async () => {
+        console.log(productDetails.productId);
+        await axios.post('/api/cart-items/', {
+            productId: productDetails.productId,
+            quantity: 1
+        });
+        await loadCart();
+    }
+
+    return (
+        <Fragment key={productDetails.productId}>
+            <div className="product-image-container">
+                <img src={productDetails.product.image} />
+            </div>
+
+            <div className="product-details">
+                <div className="product-name">
+                    {productDetails.product.name}
+                </div>
+                <div className="product-delivery-date">
+                    Arriving on: {dayjs(productDetails.estimatedDeliveryTimeMs)
+                        .format('MMMM D')}
+                </div>
+                <div className="product-quantity">
+                    Quantity: {productDetails.quantity}
+                </div>
+                <button className="buy-again-button button-primary" onClick={incrementCartItemQuantity}>
+                    <img className="buy-again-icon" src={BuyAgain} />
+                    <span className="buy-again-message">Add to Cart</span>
+                </button>
+            </div>
+
+            <div className="product-actions">
+                <a href={`tracking/${order.id}/${productDetails.productId}`}>
+                    <button className="track-package-button button-secondary">
+                        Track package
+                    </button>
+                </a>
+            </div>
+        </Fragment>
+    );
+}

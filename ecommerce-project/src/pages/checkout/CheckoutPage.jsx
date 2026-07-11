@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect} from 'react';
 import { CheckoutHeader } from './CheckoutHeader';
 import { OrderSummary } from './OrderSummary';
 import { PaymentSummary } from './PaymentSummary'
@@ -12,16 +12,20 @@ export function CheckoutPage({ cart, loadCart }) {
     const [paymentSummary, setPaymentSummary] = useState(null);
 
     useEffect(() => {
-        const fetchCkeckoutData = async () => {
+        const fetchDeliveryOptions = async () => {
             let response = await axios.get('/api/delivery-options?expand=estimatedDeliveryTime');
             setDeliveryOptions(response.data);
+        }
+        fetchDeliveryOptions();
+    }, []);
 
-            response = await axios.get('/api/payment-summary');
+    useEffect(() => {
+        const fetchPaymentSummary = async () => {
+            const response = await axios.get('/api/payment-summary');
             setPaymentSummary(response.data);
         }
- 
-        fetchCkeckoutData();
-    }, [cart]);
+        fetchPaymentSummary();
+    }, [cart])
 
     return (
         <>
