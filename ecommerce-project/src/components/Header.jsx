@@ -1,13 +1,19 @@
-import { NavLink } from 'react-router'
-import LogoWhite from '../assets/images/logo-white.png'
-import MobileLogoWhite from '../assets/images/mobile-logo-white.png'
-import CartIcon from '../assets/images/icons/cart-icon.png'
-import SearchIcon from '../assets/images/icons/search-icon.png'
-import { getItemsInCart } from '../utils/items.js'
+import { NavLink, useSearchParams, useNavigate } from 'react-router';
+import { useState } from 'react';
+import LogoWhite from '../assets/images/logo-white.png';
+import MobileLogoWhite from '../assets/images/mobile-logo-white.png';
+import CartIcon from '../assets/images/icons/cart-icon.png';
+import SearchIcon from '../assets/images/icons/search-icon.png';
+import { getItemsInCart } from '../utils/items.js';
 
 import './Header.css'
 
 export function Header({ cart }) {
+    const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const searchString = searchParams.get('search');
+    const [searchInput, setSearchInput] = useState(searchString || '');
+
     return (
         <>
             <div className="header">
@@ -21,10 +27,21 @@ export function Header({ cart }) {
                 </div>
 
                 <div className="middle-section">
-                    <input className="search-bar" type="text" placeholder="Search" />
+                    <input className="search-bar" type="text" placeholder="Search"
+                        value={searchInput}
+                        onChange={(event) => {
+                            setSearchInput(event.target.value);
+                        }}
+                        onKeyDown={(e) => { 
+                            e.key === 'Enter' 
+                                ? navigate(`/?search=${searchInput}`)
+                                : e.key === 'Escape' && setSearchInput('') ;
+                        }}/>
 
                     <button className="search-button">
-                        <img className="search-icon" src={SearchIcon} />
+                        <img className="search-icon" src={SearchIcon} 
+                            onClick={() => {navigate(`/?search=${searchInput}`)}}
+                        />
                     </button>
                 </div>
 

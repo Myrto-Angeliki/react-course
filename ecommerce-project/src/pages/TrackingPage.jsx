@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router';
+import { Link, useParams} from 'react-router';
 import dayjs from 'dayjs';
 import { Header } from '../components/Header';
 import { getDeliveryPercent } from '../utils/deliveryPercent'
@@ -10,6 +10,7 @@ import './TrackingPage.css'
 export function TrackingPage({ cart }) {
     const {orderId, productId} = useParams();
     const [order, setOrder] = useState(null);
+    
 
     useEffect(() => {
         const fetchTrackinData = async () => {
