@@ -9,9 +9,13 @@ vi.mock('axios');
 
 describe('HomePage component', () => {
     let loadCart;
+    let searchString;
+    let user;
 
     beforeEach(() => {
         loadCart = vi.fn();
+        searchString = 'ball';
+        user = userEvent.setup();
 
         axios.get.mockImplementation(async (urlPath) => {
             if (urlPath === '/api/products') {
@@ -40,6 +44,21 @@ describe('HomePage component', () => {
                     }]
                 };
             }
+            if (urlPath === `/api/products/?search=${searchString}`) {
+                return {
+                    data: [{
+                        id: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
+                        image: "images/products/intermediate-composite-basketball.jpg",
+                        name: "Intermediate Size Basketball",
+                        rating: {
+                            stars: 4,
+                            count: 127
+                        },
+                        priceCents: 2095,
+                        keywords: ["sports", "basketballs"]
+                    }]
+                }
+            }
         });
     })
 
@@ -61,4 +80,53 @@ describe('HomePage component', () => {
                 .getByText('Intermediate Size Basketball')
         ).toBeInTheDocument();
     });
+
+    it('adds two products to the cart', async () => {
+        render(<MemoryRouter>
+            <HomePage cart={[]} loadCart={loadCart} />
+        </MemoryRouter> );
+        
+        const productContainers = await screen.findAllByTestId('product-container');
+
+        let addToCartButton = within(productContainers[0]).getByTestId('add-to-cart-button');
+        let quantitySelector = within(productContainers[0]).getByTestId('quantity-selector');
+        await user.selectOptions(quantitySelector, '2');
+        await user.click(addToCartButton);
+
+        addToCartButton = within(productContainers[1]).getByTestId('add-to-cart-button');
+        quantitySelector = within(productContainers[1]).getByTestId('quantity-selector');
+        await user.selectOptions(quantitySelector, '3');
+        await user.click(addToCartButton);
+
+        expect(axios.post).toHaveBeenNthCalledWith(1, 
+            '/api/cart-items',
+            {
+                productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+                quantity: 2
+            }
+        );
+        expect(axios.post).toHaveBeenNthCalledWith(2, 
+            '/api/cart-items',
+            {
+                productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
+                quantity: 3
+            }
+        );
+        expect(loadCart).toHaveBeenCalledTimes(2);
+
+    });
+
+    // it('displays the products relevant to the search word correctly', async () => {
+    //     render(<MemoryRouter>
+    //         <HomePage cart={[]} loadCart={loadCart} />
+    //     </MemoryRouter> );
+    //     const productContainers = await screen.findAllByTestId('product-container');
+
+    //     expect(productContainers.length).toBe(2);
+
+    //     expect(
+    //         within(productContainers[0])
+    //             .getByText('Intermediate Size Basketball')
+    //     ).toBeInTheDocument();
+    // });
 });
