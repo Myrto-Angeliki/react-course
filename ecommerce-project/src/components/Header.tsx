@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { NavLink, useSearchParams, useNavigate } from 'react-router';
 import { useState } from 'react';
 import LogoWhite from '../assets/images/logo-white.png';
@@ -8,7 +9,15 @@ import { getItemsInCart } from '../utils/items.js';
 
 import './Header.css'
 
-export function Header({ cart }) {
+type HeaderProps = {
+    cart: {
+        productId: string;
+        quantity: number;
+        deliveryOptionId: string;
+    }[];
+}
+
+export function Header({ cart }: HeaderProps) {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const searchString = searchParams.get('search');
