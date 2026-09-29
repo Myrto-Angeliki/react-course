@@ -1,101 +1,108 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>React Basics</title>
-    </head>
-    <body>
-        <div class="js-container"></div>
 
-        <script src="https://unpkg.com/supersimpledev/react.js"></script>
-        <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+<head>
+    <title>React Basics</title>
+</head>
 
-        <script src="https://unpkg.com/supersimpledev/babel.js"></script>
-        <script type="text/babel">
+<body>
+    <div class="js-container"></div>
 
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
 
-            function ResetCount({setCount}){
-                function handleReset(){
-                    setCount(0);
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+
+        var timerId = 0;
+
+        function ResetCount({ setCount, setIsAutoClick}) {
+            function handleReset() {
+                setCount(0);
+                setIsAutoClick(false);
+            }
+
+            return (
+                <>
+                    <button onClick={handleReset}>
+                        Reset
+                    </button>
+                </>
+            );
+        }
+
+        function AutoClick({ buttonRef, isAutoClick, setIsAutoClick}) {
+            React.useEffect(() => {
+                const buttonElem = buttonRef.current;
+                if (buttonElem && isAutoClick) {
+
+                    timerId = setInterval(() => { buttonElem.click() }, 1000);
                 }
-
-                return (
-                   <>
-                        <button onClick={handleReset}>
-                            Reset
-                        </button>
-                    </> 
-                );
-            }
-
-            function AutoClick({buttonRef}){
-                const [isAutoClick, setIsAutoClick] = React.useState(false);
-                let timerId = 0;
-
-
-                React.useEffect(() => {
-                    const buttonElem = buttonRef.current;
-                    if(buttonElem && isAutoClick){
-
-                        timerId = setInterval(() => {buttonElem.click()}, 1000);
-                    }
-                }, [isAutoClick]);
-
-                return (
-                    <>
-                        <button 
-                            onClick={() => {
-                                setIsAutoClick(!isAutoClick)
-                            }}
-                        >
-                            Auto Click
-                        </button>
-                    </>
-                );
-            }
-            
-            function ButtonClickCount({count, setCount}){
-                const [isAutoClick, setIsAutoClick] = React.useState(false);
-                const buttonRef = React.useRef(null);
-
-                function handleClick(){
-                    setCount((count + 1));
+                if (buttonElem && !isAutoClick) {
+                    clearInterval(timerId)
                 }
+            }, [isAutoClick]);
 
-                return (
-                    <>
-                        <button 
-                            onClick={handleClick}
-                            ref={buttonRef}
-                        >
-                            Clicked {count} {count != 1 ? 'times' : 'time'}
-                        </button>
-                        <ResetCount 
-                            setCount = {setCount}
-                        />
-                        <AutoClick 
-                            buttonRef = {buttonRef}
-                        />
+            return (
+                <>
+                    <button
+                        onClick={() => {
+                            setIsAutoClick(!isAutoClick)
+                        }}
+                    >
+                        Auto Click
+                    </button>
+                </>
+            );
+        }
 
-                    </>
-                );
-            }
-            
+        function ButtonClickCount({ count, setCount }) {
+            const [isAutoClick, setIsAutoClick] = React.useState(false);
+            const buttonRef = React.useRef(null);
 
-            function App(){
-                const [count, setCount] = React.useState(0);
-
-                return (
-                    <>
-                        <ButtonClickCount 
-                            count = {count}
-                            setCount = {setCount}
-                        />
-                    </>
-                );
+            function handleClick() {
+                setCount((count + 1));
             }
 
-            const container = document.querySelector('.js-container');
-            ReactDOM.createRoot(container).render(<App />);
-        </script>
-    </body>
+            return (
+                <>
+                    <button
+                        onClick={handleClick}
+                        ref={buttonRef}
+                    >
+                        Clicked {count} {count != 1 ? 'times' : 'time'}
+                    </button>
+                    <ResetCount
+                        setCount={setCount}
+                        setIsAutoClick={setIsAutoClick}
+                    />
+                    <AutoClick
+                        buttonRef={buttonRef}
+                        isAutoClick={isAutoClick}
+                        setIsAutoClick={setIsAutoClick}
+                    />
+
+                </>
+            );
+        }
+
+
+        function App() {
+            const [count, setCount] = React.useState(0);
+
+            return (
+                <>
+                    <ButtonClickCount
+                        count={count}
+                        setCount={setCount}
+                    />
+                </>
+            );
+        }
+
+        const container = document.querySelector('.js-container');
+        ReactDOM.createRoot(container).render(<App />);
+    </script>
+</body>
+
 </html>
