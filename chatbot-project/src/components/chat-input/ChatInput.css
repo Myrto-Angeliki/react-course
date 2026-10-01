@@ -23,15 +23,19 @@
 }
 
 #send.input-button{
-    background-color: rgb(25, 135, 84);;
+    background-color: rgb(25, 135, 84);
     color: white;
     
 }
 
 #clear.input-button{
-    background-color: rgb(180, 204, 193);;
+    background-color: rgb(180, 204, 193);
     color: black;
-    
+}
+
+#add-response.input-button{
+    background-color: rgb(25, 106, 135);
+    color: white;
 }
 
 .loading-spinner{

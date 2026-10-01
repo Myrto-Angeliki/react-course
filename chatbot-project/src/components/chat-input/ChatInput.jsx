@@ -1,10 +1,10 @@
 import { useEffect, useState} from 'react'
-import {handleUpArrowButtonPress, handleDownArrowButtonPress} from '../utils/input.js'
-import { sendMessage } from './SendMessage.jsx'
+import {handleUpArrowButtonPress, handleDownArrowButtonPress} from '../../utils/input.js'
+import { sendMessage } from './sendMessage.jsx'
 
 import './ChatInput.css';   
 
-export function ChatInput({isVisibile, chatMessages, setChatMessages}){
+export function ChatInput({isVisibile, chatMessages, setChatMessages, setIsModalOpen}){
   const [inputText, setInputText] = useState('');
   const [messagesIndex, setMessagesIndex] = useState(chatMessages.length);
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +18,7 @@ export function ChatInput({isVisibile, chatMessages, setChatMessages}){
   }
 
   if(!isVisibile )
-    return <></>
+    return null
   return (
       <div className="chat-input-container">
           <input 
@@ -48,6 +48,12 @@ export function ChatInput({isVisibile, chatMessages, setChatMessages}){
                         && (sendMessage(chatMessages, setChatMessages, inputText, setInputText, setIsLoading));
                 }}
             >Send</button>
+
+            <button
+                className="input-button"
+                id="add-response"
+                onClick={() => setIsModalOpen(true)}
+            >Add Response</button>
 
             <button 
                 className="input-button"

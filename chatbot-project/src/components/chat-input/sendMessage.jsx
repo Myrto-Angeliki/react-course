@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import LoadingSpinner from '../assets/loading-spinner.gif'
+import LoadingSpinner from '../../assets/loading-spinner.gif'
 import { Chatbot } from 'supersimpledev'
 
 export async function sendMessage(chatMessages, setChatMessages, 

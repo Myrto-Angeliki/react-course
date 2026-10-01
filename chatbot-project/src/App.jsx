@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { PositionSwitcher } from './components/PositionSwitcher.jsx'
 import { ChatbotPosition } from './components/ChatboxPosition.jsx'
+import { AddResponseModal } from './components/modals/AddResponseModal.jsx'
 import { useAdditionalResponses } from './utils/chatbotExtensions.js'
 import { getContainerPosition } from './utils/chatbotContainer.js'
 
@@ -11,13 +12,14 @@ import { Chatbot } from 'supersimpledev'
 
 function App() {
     const [chatMessages, setChatMessages] = useState(JSON.parse(localStorage.getItem('messages')) || []);
-    const additionalResponses = useAdditionalResponses();
+    const [additionalResponses, setAdditionalResponses] = useState(useAdditionalResponses());
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [isSwitchToTop, setIsSwitchToTop] = useState(
         JSON.parse(localStorage.getItem('position')) || false);
 
     useEffect(() => {
         Chatbot.addResponses(additionalResponses);
-    });
+    }, [additionalResponses]);
     useEffect(() => {
         localStorage.setItem('messages', JSON.stringify(chatMessages));
     }, [chatMessages]);
@@ -27,13 +29,19 @@ function App() {
     }, [isSwitchToTop]);
 
     return (
-        <div className={getContainerPosition(isSwitchToTop)}>
-            <PositionSwitcher isSwitchToTop={isSwitchToTop} setIsSwitchToTop={setIsSwitchToTop}/>
-            <ChatbotPosition 
-                isSwitchToTop={isSwitchToTop} 
-                chatMessages={chatMessages} 
-                setChatMessages={setChatMessages} />
-        </div>
+        <>
+            <AddResponseModal open={isModalOpen} 
+                onClose={() => setIsModalOpen(false)}
+                setAdditionalResponses={setAdditionalResponses} />
+            <div className={getContainerPosition(isSwitchToTop)}>
+                <PositionSwitcher isSwitchToTop={isSwitchToTop} setIsSwitchToTop={setIsSwitchToTop}/>
+                <ChatbotPosition 
+                    isSwitchToTop={isSwitchToTop} 
+                    chatMessages={chatMessages} 
+                    setChatMessages={setChatMessages}
+                    setIsModalOpen={setIsModalOpen} />
+            </div>
+        </>
     );
 }
 

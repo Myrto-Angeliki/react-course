@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { ChatMessage } from './ChatMessage.jsx'
-import { WelcomeMessage } from './WelcomeMessage'
+import { WelcomeMessage } from './WelcomeMessage.jsx'
 import './ChatMessages.css';
 
 
