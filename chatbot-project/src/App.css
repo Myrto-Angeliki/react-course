@@ -1,11 +1,10 @@
-.app-container{
+.app-container {
+    font-family: Arial;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
-
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+    margin-top: 20px;
+    display: grid;
 }
 
 .chatbot-container-top {

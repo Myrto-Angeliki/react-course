@@ -24,7 +24,6 @@ function App() {
     
     useEffect(() => {
         localStorage.setItem('position', (JSON.stringify(isSwitchToTop)));
-        console.log("Is Switch: ", isSwitchToTop)
     }, [isSwitchToTop]);
 
     return (

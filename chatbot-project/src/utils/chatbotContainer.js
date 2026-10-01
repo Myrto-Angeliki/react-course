@@ -1,8 +1,8 @@
 export function getContainerPosition(isSwitchToTop) {
     let containerClass;
     isSwitchToTop
-        ? containerClass = "app-container .chatbot-container-top"
-        : containerClass = "app-container .chatbot-container-bottom";
+        ? containerClass = "app-container chatbot-container-top"
+        : containerClass = "app-container chatbot-container-bottom";
     return containerClass
 }
 

@@ -1,22 +1,21 @@
+const USER_MESSAGE_OFFSET = 2;
+
 export function handleUpArrowButtonPress(messagesIndex, setInputText, 
-    setMessagesIndex, chatMessages, inputText) {
-    if (messagesIndex >= 0) {
-        setInputText(chatMessages[messagesIndex].message);
-        setMessagesIndex(messagesIndex - 2);
+    setMessagesIndex, chatMessages) {
+    if (messagesIndex > 0) {
+        setInputText(chatMessages[messagesIndex-USER_MESSAGE_OFFSET].message);
+        setMessagesIndex(messagesIndex - USER_MESSAGE_OFFSET);
     }
     else
-        setInputText(inputText);
+        chatMessages.length != 0 && setInputText(chatMessages[messagesIndex].message);
 }
 
 export function handleDownArrowButtonPress(messagesIndex, setInputText, 
     setMessagesIndex, chatMessages) {
-    if (0 <= messagesIndex && messagesIndex < (chatMessages.length - 2)) {
-        setMessagesIndex(messagesIndex + 2);
-        setInputText(chatMessages[messagesIndex + 2].message)
-    }
-    else if (0 > messagesIndex && messagesIndex < (chatMessages.length - 2)) {
-        setMessagesIndex(messagesIndex + 4);
-        setInputText(chatMessages[messagesIndex + 4].message)
+
+    if (messagesIndex < chatMessages.length-USER_MESSAGE_OFFSET) {
+        setMessagesIndex(messagesIndex + USER_MESSAGE_OFFSET);
+        setInputText(chatMessages[messagesIndex + USER_MESSAGE_OFFSET].message)
     }
     else
         setInputText('');

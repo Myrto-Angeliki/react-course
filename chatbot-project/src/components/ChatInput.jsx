@@ -6,7 +6,7 @@ import './ChatInput.css';
 
 export function ChatInput({isVisibile, chatMessages, setChatMessages}){
   const [inputText, setInputText] = useState('');
-  const [messagesIndex, setMessagesIndex] = useState(chatMessages.length-2);
+  const [messagesIndex, setMessagesIndex] = useState(chatMessages.length);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export function ChatInput({isVisibile, chatMessages, setChatMessages}){
                     : e.key === 'Escape' && setInputText('');
                   if(e.key === 'ArrowUp')
                     handleUpArrowButtonPress(messagesIndex, setInputText, 
-                        setMessagesIndex, chatMessages, inputText);
+                        setMessagesIndex, chatMessages);
                   if(e.key === 'ArrowDown')
                     handleDownArrowButtonPress(messagesIndex, setInputText, 
                         setMessagesIndex, chatMessages);

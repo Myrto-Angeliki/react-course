@@ -9,7 +9,7 @@ export function ChatbotPosition({isSwitchToTop, chatMessages, setChatMessages}){
             chatMessages={chatMessages}
             setChatMessages={setChatMessages}
         />
-        <ChatMessages chatMessages={chatMessages} />
+        <ChatMessages chatMessages={chatMessages} isSwitchToTop={isSwitchToTop} />
         <ChatInput
             isVisibile={!isSwitchToTop ? true : false}
             chatMessages={chatMessages}

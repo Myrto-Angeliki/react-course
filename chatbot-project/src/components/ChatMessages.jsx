@@ -4,18 +4,17 @@ import { WelcomeMessage } from './WelcomeMessage'
 import './ChatMessages.css';
 
 
-export function ChatMessages({ chatMessages }) {
-    const chatMessagesRef = useAutoScroll([chatMessages]);
+export function ChatMessages({ chatMessages,  isSwitchToTop}) {
+    const chatMessagesRef = useAutoScroll(chatMessages, isSwitchToTop);
 
-    function useAutoScroll(dependencies) {
+    function useAutoScroll(chatMessages, isSwitchToTop) {
         const ref = useRef(null);
 
         useEffect(() => {
             const containerElem = ref.current;
-            if (containerElem) {
+            if (containerElem) 
                 containerElem.scrollTop = containerElem.scrollHeight;
-            }
-        }, dependencies);
+        }, [chatMessages, isSwitchToTop]);
 
         return ref;
     }

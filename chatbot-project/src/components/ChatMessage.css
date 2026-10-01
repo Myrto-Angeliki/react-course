@@ -3,11 +3,13 @@
 
     justify-content: end;
     align-items: start;
+    margin-bottom: 20px;
 }
 
 .chat-message-robot{
     display: flex;
     align-items: start;
+    margin-bottom: 20px;
 }
 
 .chat-message-text{
