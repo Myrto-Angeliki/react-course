@@ -1,58 +1,24 @@
-import { useState} from 'react'
-import dayjs from 'dayjs';
-import LoadingSpinner from '../assets/loading-spinner.gif'
-import { Chatbot } from 'supersimpledev'
+import { useEffect, useState} from 'react'
+import {handleUpArrowButtonPress, handleDownArrowButtonPress} from '../utils/input.js'
+import { sendMessage } from './SendMessage.jsx'
 
 import './ChatInput.css';   
 
-export function ChatInput({chatMessages, setChatMessages}){
+export function ChatInput({isVisibile, chatMessages, setChatMessages}){
   const [inputText, setInputText] = useState('');
+  const [messagesIndex, setMessagesIndex] = useState(chatMessages.length-2);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setMessagesIndex(chatMessages.length-2);
+  }, [chatMessages]);
 
   function saveInputText(event){
       setInputText(event.target.value);
   }
 
-  async function sendMessage(){
-    const newChatMessages = [
-            ...chatMessages,
-            {
-                message: inputText,
-                sender: 'user',
-                time: dayjs().format('h:mma'),
-                id: crypto.randomUUID()
-            }
-        ];
-    
-    setChatMessages(newChatMessages);
-    setInputText('');
-    
-    setChatMessages([
-        ...newChatMessages,
-        {
-            message: <img src={LoadingSpinner} className="loading-spinner" />,
-            sender: 'robot',
-            time: '',
-            id: crypto.randomUUID()
-        }
-    ]);
-    
-    setIsLoading(true);
-    const response = await Chatbot.getResponseAsync(inputText);
-
-    setChatMessages([
-        ...newChatMessages,
-        {
-            message: response,
-            sender: 'robot',
-            time: dayjs().format('h:mma'),
-            id: crypto.randomUUID()
-        }
-    ]);
-
-    setIsLoading(false);
-  }
-
+  if(!isVisibile )
+    return <></>
   return (
       <div className="chat-input-container">
           <input 
@@ -60,9 +26,16 @@ export function ChatInput({chatMessages, setChatMessages}){
               size="30" 
               onChange={saveInputText}
               onKeyDown={(e) => { 
-                  e.key === 'Enter' ? 
-                      (inputText != '' && isLoading === false) && (sendMessage()) : 
-                      e.key === 'Escape' && setInputText('');
+                  e.key === 'Enter' 
+                    ? (inputText != '' && isLoading === false) 
+                        && (sendMessage(chatMessages, setChatMessages, inputText, setInputText, setIsLoading)) 
+                    : e.key === 'Escape' && setInputText('');
+                  if(e.key === 'ArrowUp')
+                    handleUpArrowButtonPress(messagesIndex, setInputText, 
+                        setMessagesIndex, chatMessages, inputText);
+                  if(e.key === 'ArrowDown')
+                    handleDownArrowButtonPress(messagesIndex, setInputText, 
+                        setMessagesIndex, chatMessages);
               }}
               value={inputText}
               className="chat-input"
@@ -71,7 +44,8 @@ export function ChatInput({chatMessages, setChatMessages}){
                 className="input-button"
                 id="send"
                 onClick={() => {
-                    (inputText != '' && isLoading === false) && sendMessage();
+                    (inputText != '' && isLoading === false) 
+                        && (sendMessage(chatMessages, setChatMessages, inputText, setInputText, setIsLoading));
                 }}
             >Send</button>
 

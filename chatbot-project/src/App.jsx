@@ -1,57 +1,41 @@
-import { useEffect, useState} from 'react'
-import { ChatInput } from './components/ChatInput.jsx'
-import { ChatMessage } from './components/ChatMessage'
-import ChatMessages from './components/ChatMessages'
-import { WelcomeMessage } from './components/WelcomeMessage'
+import { useEffect, useState } from 'react'
+import { PositionSwitcher } from './components/PositionSwitcher.jsx'
+import { ChatbotPosition } from './components/ChatboxPosition.jsx'
+import { useAdditionalResponses } from './utils/chatbotExtensions.js'
+import { getContainerPosition } from './utils/chatbotContainer.js'
 
 import './App.css'
 import { Chatbot } from 'supersimpledev'
 
 
-function useAddAdditionalResponses(){
-    const additionalResponses = {
-    'hey' : 'Hello! How can I help you?',
-    'greetings' : 'Hello! How can I help you?',
-    'you good okay' : 'I\'m doing great! How can I help you?',
-    'date' : function () {
-            const now = new Date();
-            const months = [
-                'January', 'February', 'March', 'April', 'May', 'June',
-                'July', 'August', 'September', 'October', 'November', 'December'
-            ];
-            const month = months[now.getMonth()];
-            const day = now.getDate();
 
-            return `Today is ${month} ${day}`;
-        },
-        'What can you do help me with I don\'t know' : 
-            'I know how to flip a coin, roll a dice, or get today\'s date. Let me know how I can help!',
-        'Goodbye bye' : 'Goodbye! Let me know if you need help with anything else!'
-    };
+function App() {
+    const [chatMessages, setChatMessages] = useState(JSON.parse(localStorage.getItem('messages')) || []);
+    const additionalResponses = useAdditionalResponses();
+    const [isSwitchToTop, setIsSwitchToTop] = useState(
+        JSON.parse(localStorage.getItem('position')) || false);
 
     useEffect(() => {
-        Chatbot.addResponses(additionalResponses)
+        Chatbot.addResponses(additionalResponses);
     });
-}
-
-function App(){
-    const [chatMessages, setChatMessages] = useState(JSON.parse(localStorage.getItem('messages')) || []);
-
-    useAddAdditionalResponses();
     useEffect(() => {
         localStorage.setItem('messages', JSON.stringify(chatMessages));
     }, [chatMessages]);
-        
+    
+    useEffect(() => {
+        localStorage.setItem('position', (JSON.stringify(isSwitchToTop)));
+        console.log("Is Switch: ", isSwitchToTop)
+    }, [isSwitchToTop]);
+
     return (
-        <div className="app-container">
-            <WelcomeMessage chatMessages={chatMessages} />
-            <ChatMessages chatMessages={chatMessages} />
-            <ChatInput 
-                chatMessages={chatMessages}
-                setChatMessages={setChatMessages}
-            />
+        <div className={getContainerPosition(isSwitchToTop)}>
+            <PositionSwitcher isSwitchToTop={isSwitchToTop} setIsSwitchToTop={setIsSwitchToTop}/>
+            <ChatbotPosition 
+                isSwitchToTop={isSwitchToTop} 
+                chatMessages={chatMessages} 
+                setChatMessages={setChatMessages} />
         </div>
-    );  
+    );
 }
 
 export default App
