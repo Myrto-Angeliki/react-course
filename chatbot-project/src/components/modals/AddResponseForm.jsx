@@ -12,6 +12,9 @@ export default function AddResponseForm({onClose, setAdditionalResponses}){
     return <>
             <div className='add-response-overlay-styles' />
             <div className='add-response-modal-styles'>
+                <button className="close-btn" aria-label="Close"
+                    onClick={onClose}
+                >&times;</button>
                 <h2>Teach me a response to a specific prompt.</h2>
                 <input 
                     placeholder="Enter the prompt you want a response to." 
@@ -34,7 +37,6 @@ export default function AddResponseForm({onClose, setAdditionalResponses}){
                     onClick={() => {
                         response[keyText] = responseText;
                         setAdditionalResponses(response);
-                        console.log(response);
                         onClose();
                     }}> Add Response</button>
                 <button className='input-button' 

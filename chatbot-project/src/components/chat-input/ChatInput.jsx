@@ -10,7 +10,7 @@ export function ChatInput({isVisibile, chatMessages, setChatMessages, setIsModal
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setMessagesIndex(chatMessages.length-2);
+    setMessagesIndex(chatMessages.length);
   }, [chatMessages]);
 
   function saveInputText(event){

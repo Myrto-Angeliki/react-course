@@ -12,7 +12,6 @@ export function handleUpArrowButtonPress(messagesIndex, setInputText,
 
 export function handleDownArrowButtonPress(messagesIndex, setInputText, 
     setMessagesIndex, chatMessages) {
-
     if (messagesIndex < chatMessages.length-USER_MESSAGE_OFFSET) {
         setMessagesIndex(messagesIndex + USER_MESSAGE_OFFSET);
         setInputText(chatMessages[messagesIndex + USER_MESSAGE_OFFSET].message)
