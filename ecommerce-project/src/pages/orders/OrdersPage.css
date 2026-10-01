@@ -1,16 +1,21 @@
 .orders-page {
-  max-width: 850px;
+  /* max-width: 850px;
   margin-top: 90px;
-  margin-bottom: 100px;
-  padding-left: 20px;
-  padding-right: 20px;
+  margin-bottom: 100px;*/
+  padding: 90px;
+  margin: 0;
 
   /* margin-left: auto;
      margin-right auto;
      Is a trick for centering an element horizontally
      without needing a container. */
-  margin-left: auto;
-  margin-right: auto;
+  /* margin-left: auto;
+  margin-right: auto; */
+}
+
+#dark-mode.orders-page{
+  background-color: rgb(8, 19, 5);
+  color: aliceblue;
 }
 
 .orders-page .page-title {
@@ -36,6 +41,10 @@
   padding: 20px 25px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+}
+
+#dark-mode.order-header{
+  background-color: rgb(8, 19, 5);
 }
 
 .orders-page .order-header-left-section {

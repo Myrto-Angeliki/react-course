@@ -1,9 +1,9 @@
 import dayjs from "dayjs";
 import { formatMoney } from '../../utils/money';
 
-export function OrderHeader({ order }) {
+export function OrderHeader({ order, isDarkMode }) {
     return (
-        <div className="order-header">
+        <div className="order-header" id={isDarkMode ? 'dark-mode' : ''}>
             <div className="order-header-left-section">
                 <div className="order-date">
                     <div className="order-header-label">Order Placed:</div>

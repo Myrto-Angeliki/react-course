@@ -15,9 +15,11 @@ type HeaderProps = {
         quantity: number;
         deliveryOptionId: string;
     }[];
+    isDarkMode: boolean;
+    setIsDarkMode: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export function Header({ cart }: HeaderProps) {
+export function Header({ cart, isDarkMode, setIsDarkMode }: HeaderProps) {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const searchString = searchParams.get('search');
@@ -25,7 +27,7 @@ export function Header({ cart }: HeaderProps) {
 
     return (
         <>
-            <div className="header">
+            <div className="header" id={isDarkMode ? 'dark-mode': ''}>
                 <div className="left-section">
                     <NavLink to="/" className="header-link">
                         <img className="logo"
@@ -41,22 +43,28 @@ export function Header({ cart }: HeaderProps) {
                         onChange={(event) => {
                             setSearchInput(event.target.value);
                         }}
-                        onKeyDown={(e) => { 
-                            e.key === 'Enter' 
+                        onKeyDown={(e) => {
+                            e.key === 'Enter'
                                 ? navigate(`/?search=${searchInput}`)
-                                : e.key === 'Escape' && setSearchInput('') ;
-                        }}/>
+                                : e.key === 'Escape' && setSearchInput('');
+                        }} />
 
                     <button className="search-button">
-                        <img className="search-icon" src={SearchIcon} 
-                            onClick={() => {navigate(`/?search=${searchInput}`)}}
+                        <img className="search-icon" src={SearchIcon}
+                            onClick={() => { navigate(`/?search=${searchInput}`) }}
                         />
                     </button>
                 </div>
 
                 <div className="right-section">
-                    <NavLink className="orders-link header-link" to="/orders">
+                    <button type="button" className="theme-toggle" 
+                    onClick={()=>{setIsDarkMode(!isDarkMode)}}
+                        aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+                        title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}>
+                        {isDarkMode ? '☀️' : '🌙'}
+                    </button>
 
+                    <NavLink className="orders-link header-link" to="/orders">
                         <span className="orders-text">Orders</span>
                     </NavLink>
 

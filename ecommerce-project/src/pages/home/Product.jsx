@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { formatMoney } from "../../utils/money";
 
-export function Product({ product, loadCart }) {
+export function Product({ product, loadCart, isDarkMode }) {
     const [quantity, setQuantity] = useState(1);
     const [addedItem, setAddedItem] = useState(false);
 
@@ -23,7 +23,8 @@ export function Product({ product, loadCart }) {
     }
 
     return (
-        <div key={product.id} className="product-container"
+        <div key={product.id} className="product-container" 
+            id={isDarkMode ? 'dark-mode' : ''}
             data-testid="product-container" >
             <div className="product-image-container">
                 <img className="product-image"

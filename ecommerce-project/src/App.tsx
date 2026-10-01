@@ -13,6 +13,7 @@ import './App.css'
 
 function App() {
   const [cart, setCart] = useState([]);
+  const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem('nightMode') == 'true' || false);
 
   const loadCart = async () => {
         const response = await axios.get('api/cart-items?expand=product');
@@ -25,9 +26,9 @@ function App() {
 
   return (
     <Routes>
-      <Route index element={<HomePage cart={cart} loadCart={loadCart} />} />
+      <Route index element={<HomePage cart={cart} loadCart={loadCart} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode}/>} />
       <Route path="checkout" element={<CheckoutPage cart={cart} loadCart={loadCart} />}  />
-      <Route path="orders" element={<OrdersPage cart={cart} loadCart={loadCart} />}      />
+      <Route path="orders" element={<OrdersPage cart={cart} loadCart={loadCart} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />}      />
       <Route path="tracking/:orderId/:productId" element={<TrackingPage cart={cart}/>}  />
       <Route path="*" element={<NotFoundPage cart={cart} />}  />
     </Routes>

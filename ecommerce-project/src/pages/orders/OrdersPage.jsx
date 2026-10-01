@@ -8,7 +8,7 @@ import './OrdersPage.css';
 
 
 
-export function OrdersPage({ cart, loadCart }) {
+export function OrdersPage({ cart, loadCart, isDarkMode, setIsDarkMode }) {
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
@@ -25,11 +25,11 @@ export function OrdersPage({ cart, loadCart }) {
             <title>Orders</title>
             <link rel="icon" href="orders-favicon.png" />
 
-            <Header cart={cart} />
+            <Header cart={cart} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
 
-            <div className="orders-page">
+            <div className="orders-page" id={isDarkMode ? 'dark-mode' : ''}>
                 <div className="page-title">Your Orders</div>
-                <OrdersGrid orders={orders} loadCart={loadCart}/>
+                <OrdersGrid orders={orders} loadCart={loadCart} isDarkMode={isDarkMode}/>
             </div>
         </>
     );

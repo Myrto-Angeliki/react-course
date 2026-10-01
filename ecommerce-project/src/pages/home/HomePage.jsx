@@ -5,7 +5,7 @@ import { ProductsGrid} from './ProductsGrid'
 import { Header } from '../../components/Header'
 import './HomePage.css'
 
-export function HomePage( {cart, loadCart} ) {
+export function HomePage( {cart, loadCart, isDarkMode, setIsDarkMode} ) {
     const [products, setProducts] = useState([]);
     const [searchParams] = useSearchParams();
     const searchString = searchParams.get('search');
@@ -27,10 +27,10 @@ export function HomePage( {cart, loadCart} ) {
             <title>Ecommerce Project</title>
             <link rel="icon" href="home-favicon.png" />
 
-            <Header cart={cart} />
+            <Header cart={cart} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
 
             <div className="home-page">
-                <ProductsGrid products={products} loadCart={loadCart} />
+                <ProductsGrid products={products} loadCart={loadCart} isDarkMode={isDarkMode} />
             </div>
         </>
     );
