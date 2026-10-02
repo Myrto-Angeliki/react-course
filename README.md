@@ -107,7 +107,7 @@ Demos will be added here as the projects are deployed.
 
 | Project | Live Demo | GIF / Preview |
 |---|---|---|
-| Chatbot | *Coming soon* | [demo 1](./chatbot-project/src/assets/chatbot_1.gif), [demo 2](./chatbot-project/src/assets/chatbot_2.gif)|
+| Chatbot | [live demo](https://myrto-angeliki.github.io/chatbot-project-demo/) | [demo 1](./chatbot-project/src/assets/chatbot_1.gif), [demo 2](./chatbot-project/src/assets/chatbot_2.gif)|
 | Ecommerce | - | [demo 1](./ecommerce-project/src/assets/ecommerce_1.gif), [demo 2](./ecommerce-project/src/assets/ecommerce_2.gif)|
 
 ## Purpose of This Repository

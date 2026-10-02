@@ -10,9 +10,7 @@ The project was developed progressively as part of the course, with the original
 
 ### Live Demo
 
-> **Coming soon**
-
-[GitHub Pages / Live Demo](#)
+[Live Demo](https://myrto-angeliki.github.io/chatbot-project-demo/)
 
 ### GIFs
 
