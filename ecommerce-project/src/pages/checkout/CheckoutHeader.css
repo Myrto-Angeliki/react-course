@@ -102,6 +102,20 @@
   height: 32px;
 }
 
+.checkout-header-right-section .theme-toggle {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: white;
+  padding: 7px 8px;
+  margin-right: 3px;
+  line-height: 1;
+}
+
+.checkout-header-right-section .theme-toggle:hover {
+  border-color: white;
+}
+
 @media (max-width: 1000px) {
   .checkout-header .checkout-header-right-section {
     width: auto;

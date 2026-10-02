@@ -5,8 +5,12 @@ import MobileLogo from '../../assets/images/mobile-logo.png'
 import CheckoutLock from "../../assets/images/icons/checkout-lock-icon.png"
 
 import './CheckoutHeader.css'
+import { useContext } from 'react'
+import { DarkModeContext } from '../../contexts/DarkModeContext.jsx'
 
 export function CheckoutHeader({ cart }) {
+    const { isDarkMode, setIsDarkMode} = useContext(DarkModeContext);
+
     return (
         <div className="checkout-header">
             <div className="header-content">
@@ -23,6 +27,12 @@ export function CheckoutHeader({ cart }) {
                 </div>
 
                 <div className="checkout-header-right-section">
+                    <button type="button" className="theme-toggle" 
+                    onClick={()=>{setIsDarkMode(!isDarkMode)}}
+                        aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+                        title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}>
+                        {isDarkMode ? '☀️' : '🌙'}
+                    </button>
                     <img src={CheckoutLock} />
                 </div>
             </div>

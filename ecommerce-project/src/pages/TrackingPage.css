@@ -1,16 +1,23 @@
 .tracking-page {
-  max-width: 850px;
+  padding: 140px;
+  margin: 0;
+  /* max-width: 850px;
   margin-top: 90px;
   margin-bottom: 100px;
   padding-left: 30px;
-  padding-right: 30px;
+  padding-right: 30px; */
 
   /* margin-left: auto;
      margin-right auto;
      Is a trick for centering an element horizontally
-     without needing a container. */
+     without needing a container. 
   margin-left: auto;
-  margin-right: auto;
+  margin-right: auto; */
+}
+
+#dark-mode.tracking-page{
+  background-color: rgb(28, 39, 25);
+  color: aliceblue;
 }
 
 .tracking-page .back-to-orders-link {

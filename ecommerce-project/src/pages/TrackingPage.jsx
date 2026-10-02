@@ -1,16 +1,17 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Link, useParams} from 'react-router';
 import dayjs from 'dayjs';
 import { Header } from '../components/Header';
 import { getDeliveryPercent } from '../utils/deliveryPercent'
 
 import './TrackingPage.css'
+import { DarkModeContext } from '../contexts/DarkModeContext';
 
-export function TrackingPage({ cart }) {
+export function TrackingPage({ cart}) {
     const {orderId, productId} = useParams();
     const [order, setOrder] = useState(null);
-    
+    const { isDarkMode } = useContext(DarkModeContext);
 
     useEffect(() => {
         const fetchTrackinData = async () => {
@@ -42,7 +43,7 @@ export function TrackingPage({ cart }) {
 
             <Header cart={cart} />
 
-            <div className="tracking-page">
+            <div className="tracking-page" id={isDarkMode ? 'dark-mode' : ''}>
                 <div className="order-tracking">
                     <Link className="back-to-orders-link link-primary" to="/orders">
                         View all orders

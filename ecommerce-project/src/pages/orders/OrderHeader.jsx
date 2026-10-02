@@ -1,7 +1,10 @@
 import dayjs from "dayjs";
 import { formatMoney } from '../../utils/money';
+import { useContext } from "react";
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
-export function OrderHeader({ order, isDarkMode }) {
+export function OrderHeader({ order}) {
+    const { isDarkMode } = useContext(DarkModeContext);
     return (
         <div className="order-header" id={isDarkMode ? 'dark-mode' : ''}>
             <div className="order-header-left-section">

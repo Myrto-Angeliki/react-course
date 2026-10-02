@@ -15,9 +15,9 @@
   height: 60px;
 }
 
-#dark-mode.header{
-  background-color: rgb(8, 49, 25);
-}
+/* #dark-mode.header{
+  background-color: rgb(8, 79, 45);
+} */
 
 .header .theme-toggle {
   background: transparent;

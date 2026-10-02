@@ -14,7 +14,7 @@
 }
 
 #dark-mode.orders-page{
-  background-color: rgb(8, 19, 5);
+  background-color: rgb(28, 39, 25);
   color: aliceblue;
 }
 
@@ -44,7 +44,8 @@
 }
 
 #dark-mode.order-header{
-  background-color: rgb(8, 19, 5);
+  background-color: rgb(68, 79, 65);
+  border: 1px solid rgb(40, 40, 40);
 }
 
 .orders-page .order-header-left-section {
@@ -106,6 +107,12 @@
   column-gap: 35px;
   row-gap: 60px;
   align-items: center;
+}
+
+#dark-mode.order-details-grid{
+  background-color: rgb(48, 59, 45);
+  color: aliceblue;
+  border: 1px solid rgb(40, 40, 40);
 }
 
 @media (max-width: 800px) {

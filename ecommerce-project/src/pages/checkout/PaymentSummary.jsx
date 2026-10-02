@@ -1,9 +1,12 @@
 import axios from "axios";
 import { useNavigate } from 'react-router';
 import { formatMoney } from "../../utils/money";
+import { useContext } from "react";
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 export function PaymentSummary({ paymentSummary, loadCart }) {
     const navigate = useNavigate();
+    const { isDarkMode } = useContext(DarkModeContext);
 
     const createOrder = async () => {
         await axios.post('/api/orders');
@@ -12,7 +15,7 @@ export function PaymentSummary({ paymentSummary, loadCart }) {
     };
 
     return (
-        <div className="payment-summary">
+        <div className="payment-summary" id={isDarkMode ? 'dark-mode' : ''}>
             <div className="payment-summary-title">
                 Payment Summary
             </div>

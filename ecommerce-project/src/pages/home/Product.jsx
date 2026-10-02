@@ -1,21 +1,23 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { formatMoney } from "../../utils/money";
+import { DarkModeContext } from '../../contexts/DarkModeContext.jsx';
 
-export function Product({ product, loadCart, isDarkMode }) {
+export function Product({ product, loadCart }) {
     const [quantity, setQuantity] = useState(1);
     const [addedItem, setAddedItem] = useState(false);
+    const {isDarkMode} = useContext(DarkModeContext);
 
-        const addToCart = async () => {
-            setAddedItem(true);
-            setTimeout(() => {setAddedItem(false);}, 2000);
+    const addToCart = async () => {
+        setAddedItem(true);
+        setTimeout(() => {setAddedItem(false);}, 2000);
 
-            await axios.post('/api/cart-items', {
-                productId: product.id,
-                quantity
-            });
-            await loadCart();
-        }
+        await axios.post('/api/cart-items', {
+            productId: product.id,
+            quantity
+        });
+        await loadCart();
+    }
 
     const selectQuantity = (event) => {
         const quantitySelected = Number(event.target.value);

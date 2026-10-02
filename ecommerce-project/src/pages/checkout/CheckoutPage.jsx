@@ -1,15 +1,17 @@
 import axios from 'axios';
-import { useState, useEffect} from 'react';
+import { useState, useEffect, useContext} from 'react';
 import { CheckoutHeader } from './CheckoutHeader';
 import { OrderSummary } from './OrderSummary';
 import { PaymentSummary } from './PaymentSummary'
 
 import './CheckoutPage.css';
+import { DarkModeContext } from '../../contexts/DarkModeContext';
 
 
 export function CheckoutPage({ cart, loadCart }) {
     const [deliveryOptions, setDeliveryOptions] = useState([]);
     const [paymentSummary, setPaymentSummary] = useState(null);
+    const { isDarkMode} = useContext(DarkModeContext);
 
     useEffect(() => {
         const fetchDeliveryOptions = async () => {
@@ -34,7 +36,7 @@ export function CheckoutPage({ cart, loadCart }) {
 
             <CheckoutHeader cart={cart} />
 
-            <div className="checkout-page">
+            <div className="checkout-page" id={isDarkMode ? 'dark-mode' : ''}>
                 <div className="page-title">Review your order</div>
 
                 <div className="checkout-grid">
