@@ -19,8 +19,8 @@
 
 #dark-mode.products-grid{
   background-color: rgb(8, 19, 5);
-  padding-bottom: 170px ;
-  min-height: 480px;
+  padding-bottom: 810px ;
+  /* min-height: 640px; */
 }
 
 /* @media is used to create responsive design (making the
